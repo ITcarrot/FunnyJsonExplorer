@@ -1,7 +1,5 @@
 #include "RectDrawer.hpp"
-#include "Picture.hpp"
 #include "RectLine.hpp"
-#include <memory>
 
 RectDrawer RectDrawerObj;
 
