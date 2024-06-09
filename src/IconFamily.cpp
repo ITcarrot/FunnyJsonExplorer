@@ -14,12 +14,10 @@ IconFamily::IconFamily(const std::string &ConfFile)
         return;
     }
 
-    std::fstream ConfFileStream(ConfFile);
-    // 在处理命令行参数时保证了文件的存在
     json ConfFileJson;
     std::string IconString;
-
     try{
+        std::fstream ConfFileStream(ConfFile);
         ConfFileStream >> ConfFileJson;
 
         IconString = ConfFileJson["InternalIcon"].dump();
@@ -36,4 +34,9 @@ IconFamily::IconFamily(const std::string &ConfFile)
         puts(e.what());
         exit(1);
     }
+}
+
+std::string IconFamily::operator[](const IconType &type) const
+{
+    return icon[type];
 }

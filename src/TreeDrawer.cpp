@@ -7,7 +7,7 @@ TreeDrawer::TreeDrawer()
     AvailableDrawer["tree"] = this;
 }
 
-std::unique_ptr<Picture> TreeDrawer::Draw(const std::string json_file) const
+std::unique_ptr<Picture> TreeDrawer::Draw(const json &JsonObj) const
 {
 
 }

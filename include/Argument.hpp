@@ -4,9 +4,9 @@
 
 class Argument{
     public:
-    std::string json_file;
+    std::string JsonFile;
     std::string style;
-    std::string icon_family;
+    std::string IconFamilyConfFile;
 
     Argument(const int &argc, char **argv);
 };

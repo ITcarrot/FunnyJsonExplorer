@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <vector>
 #include "Picture.hpp"
+#include "3rd_party/json.hpp"
+using json = nlohmann::json;
 
 class Drawer{
     protected:
@@ -12,5 +14,5 @@ class Drawer{
     static Drawer* GetAvailableDrawer(std::string DrawerName);
     static std::vector<std::string> GetAvailableDrawerName();
 
-    virtual std::unique_ptr<Picture> Draw(const std::string json_file) const = 0;
+    virtual std::unique_ptr<Picture> Draw(const json &JsonObj) const = 0;
 };
