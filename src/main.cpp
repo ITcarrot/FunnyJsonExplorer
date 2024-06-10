@@ -2,7 +2,6 @@
 #include "Drawer.hpp"
 #include "IconFamily.hpp"
 #include "Picture.hpp"
-#include <exception>
 #include <fstream>
 
 int main(int argc, char **argv)
@@ -19,9 +18,9 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    Drawer *DrawerObj = Drawer::GetAvailableDrawer(arg.style);
-    std::unique_ptr<Picture> PictureObj = DrawerObj->Draw(JsonObj);
+    auto DrawerObj = Drawer::GetAvailableDrawer(arg.style);
+    auto PictureObj = DrawerObj->Draw(JsonObj);
     IconFamily icon(arg.IconFamilyConfFile);
-    PictureObj->Print(icon);
+    PictureObj->print(icon);
     return 0;
 }

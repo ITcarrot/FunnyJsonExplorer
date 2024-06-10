@@ -1,8 +1,4 @@
 #pragma once
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <vector>
 #include "Picture.hpp"
 #include "3rd_party/json.hpp"
 using json = nlohmann::json;

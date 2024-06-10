@@ -1,6 +1,5 @@
 #include "IconFamily.hpp"
 #include <fstream>
-#include <stdexcept>
 #include "3rd_party/json.hpp"
 using json = nlohmann::json;
 
