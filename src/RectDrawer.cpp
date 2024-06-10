@@ -26,9 +26,11 @@ void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& 
             RectLineObj->LeftIndent = LeftIndent + "├─";
             RectLineObj->content = it.key();
             if(it->is_object() || it->is_array()){
+                RectLineObj->type = InternalIcon;
                 PictureObj->PictureLines.push_back(std::move(RectLineObj));
                 DrawLine(PictureObj, *it, LeftIndent + "│  ");
             }else{
+                RectLineObj->type = LeafIcon;
                 if(!it->is_null())
                     RectLineObj->content += ": " + it->dump();
                 PictureObj->PictureLines.push_back(std::move(RectLineObj));
@@ -46,6 +48,7 @@ void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& 
         auto RectLineObj = std::make_unique<RectPicture::RectLine>();
         RectLineObj->LeftIndent = LeftIndent + "├─";
         RectLineObj->content = JsonObj.dump();
+        RectLineObj->type = LeafIcon;
         PictureObj->PictureLines.push_back(std::move(RectLineObj));
     }
 }

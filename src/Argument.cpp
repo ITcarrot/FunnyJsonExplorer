@@ -11,7 +11,7 @@ Argument::Argument(const int &argc, char **argv)
     JsonFileOption->required();
     JsonFileOption->check(CLI::ExistingFile);
     auto StyleOption = app.add_option("-s", style, "Choose an output style");
-    StyleOption->required();
+    StyleOption->default_val("tree");
     StyleOption->check(CLI::IsMember(Drawer::GetAvailableDrawerName()));
     auto IconFamilyConfFileOption = app.add_option("-i", IconFamilyConfFile, "Path to the icon family configuration file");
     IconFamilyConfFileOption->check(CLI::ExistingFile);
