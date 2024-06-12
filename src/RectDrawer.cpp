@@ -8,17 +8,21 @@ RectDrawer::RectDrawer()
     AvailableDrawer["rectangle"] = this;
 }
 
-std::unique_ptr<Picture> RectDrawer::Draw(const json &JsonObj) const
+void RectDrawer::Draw(const json &JsonObj)
 {
-    auto PictureObj = std::make_unique<RectPicture>();
-    DrawLine(PictureObj, JsonObj);
-    DrawRight(PictureObj);
-    DrawUp(PictureObj);
-    DrawDown(PictureObj);
-    return PictureObj;
+    PictureObj = std::make_unique<RectPicture>();
+    DrawLine(JsonObj);
+    DrawRight();
+    DrawUp();
+    DrawDown();
 }
 
-void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& JsonObj, const std::string& LeftIndent) const
+std::unique_ptr<Picture> RectDrawer::GetPicture()
+{
+    return std::move(PictureObj);
+}
+
+void RectDrawer::DrawLine(const json& JsonObj, const std::string& LeftIndent)
 {
     if(JsonObj.is_object())
         for(auto it = JsonObj.begin(); it != JsonObj.end(); ++it){
@@ -28,7 +32,7 @@ void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& 
             if(it->is_object() || it->is_array()){
                 RectLineObj->type = InternalIcon;
                 PictureObj->PictureLines.push_back(std::move(RectLineObj));
-                DrawLine(PictureObj, *it, LeftIndent + "│  ");
+                DrawLine(*it, LeftIndent + "│  ");
             }else{
                 RectLineObj->type = LeafIcon;
                 if(!it->is_null())
@@ -40,9 +44,9 @@ void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& 
     else if(JsonObj.is_array())
         for(const auto &element: JsonObj)
             if(element.is_object() || element.is_array())
-                DrawLine(PictureObj, element, LeftIndent + "│  ");
+                DrawLine(element, LeftIndent + "│  ");
             else
-                DrawLine(PictureObj, element, LeftIndent);
+                DrawLine(element, LeftIndent);
 
     else{
         auto RectLineObj = std::make_unique<RectPicture::RectLine>();
@@ -53,7 +57,7 @@ void RectDrawer::DrawLine(std::unique_ptr<RectPicture> &PictureObj, const json& 
     }
 }
 
-void RectDrawer::DrawRight(std::unique_ptr<RectPicture> &PictureObj) const
+void RectDrawer::DrawRight()
 {
     std::string::size_type MaxLength = 0;
     for(auto &RectLineObj: PictureObj->PictureLines)
@@ -66,14 +70,14 @@ void RectDrawer::DrawRight(std::unique_ptr<RectPicture> &PictureObj) const
     }
 }
 
-void RectDrawer::DrawUp(std::unique_ptr<RectPicture> &PictureObj) const
+void RectDrawer::DrawUp()
 {
     auto &FirstLine = *PictureObj->PictureLines.begin();
     FirstLine->LeftIndent = "┌" + FirstLine->LeftIndent.substr(3);
     FirstLine->RightIndent = FirstLine->RightIndent.substr(0, FirstLine->RightIndent.size() - 3) + "┐";
 }
 
-void RectDrawer::DrawDown(std::unique_ptr<RectPicture> &PictureObj) const
+void RectDrawer::DrawDown()
 {
     auto ReplaceSubstring = [](std::string &str, const std::string &from, const std::string &to){
         std::string::size_type pos = 0;

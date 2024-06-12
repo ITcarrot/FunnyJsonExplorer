@@ -8,14 +8,18 @@ TreeDrawer::TreeDrawer()
     AvailableDrawer["tree"] = this;
 }
 
-std::unique_ptr<Picture> TreeDrawer::Draw(const json &JsonObj) const
+void TreeDrawer::Draw(const json &JsonObj)
 {
-    auto PictureObj = std::make_unique<TreePicture>();
-    DrawLine(PictureObj, JsonObj);
-    return PictureObj;
+    PictureObj = std::make_unique<TreePicture>();
+    DrawLine(JsonObj);
 }
 
-void TreeDrawer::DrawLine(std::unique_ptr<TreePicture> &PictureObj, const json& JsonObj, const std::string& LeftIndent) const
+std::unique_ptr<Picture> TreeDrawer::GetPicture()
+{
+    return std::move(PictureObj);
+}
+
+void TreeDrawer::DrawLine(const json& JsonObj, const std::string& LeftIndent)
 {
     if(JsonObj.is_object()){
         auto LastElement = JsonObj.end();
@@ -27,7 +31,7 @@ void TreeDrawer::DrawLine(std::unique_ptr<TreePicture> &PictureObj, const json& 
             if(it->is_object() || it->is_array()){
                 TreeLineObj->type = InternalIcon;
                 PictureObj->PictureLines.push_back(std::move(TreeLineObj));
-                DrawLine(PictureObj, *it, LeftIndent + (it != LastElement ? "│  " : "   "));
+                DrawLine(*it, LeftIndent + (it != LastElement ? "│  " : "   "));
             }else{
                 TreeLineObj->type = LeafIcon;
                 if(!it->is_null())
@@ -41,9 +45,9 @@ void TreeDrawer::DrawLine(std::unique_ptr<TreePicture> &PictureObj, const json& 
         LastElement--;
         for(auto it = JsonObj.begin(); it != JsonObj.end(); ++it)
             if(it->is_object() || it->is_array())
-                DrawLine(PictureObj, *it, LeftIndent + (it != LastElement ? "│  " : "   "));
+                DrawLine(*it, LeftIndent + (it != LastElement ? "│  " : "   "));
             else
-                DrawLine(PictureObj, *it, LeftIndent);
+                DrawLine(*it, LeftIndent);
 
     }else{
         auto TreeLineObj = std::make_unique<TreePicture::TreeLine>();

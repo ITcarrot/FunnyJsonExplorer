@@ -19,7 +19,8 @@ int main(int argc, char **argv)
     }
 
     auto DrawerObj = Drawer::GetAvailableDrawer(arg.style);
-    auto PictureObj = DrawerObj->Draw(JsonObj);
+    DrawerObj->Draw(JsonObj);
+    auto PictureObj = DrawerObj->GetPicture();
     IconFamily icon(arg.IconFamilyConfFile);
     PictureObj->print(icon);
     return 0;

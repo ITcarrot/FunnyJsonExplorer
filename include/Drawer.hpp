@@ -10,5 +10,6 @@ class Drawer{
     static Drawer* GetAvailableDrawer(std::string DrawerName);
     static std::vector<std::string> GetAvailableDrawerName();
 
-    virtual std::unique_ptr<Picture> Draw(const json &JsonObj) const = 0;
+    virtual void Draw(const json &JsonObj) = 0;
+    virtual std::unique_ptr<Picture> GetPicture() = 0;
 };

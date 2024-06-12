@@ -4,8 +4,10 @@
 class TreePicture;
 class TreeDrawer: public Drawer{
     private:
-    void DrawLine(std::unique_ptr<TreePicture> &PictureObj, const json& JsonObj, const std::string& LeftIndent = "") const;
+    std::unique_ptr<TreePicture> PictureObj;
+    void DrawLine(const json& JsonObj, const std::string& LeftIndent = "");
     public:
     TreeDrawer();
-    std::unique_ptr<Picture> Draw(const json &JsonObj) const override;
+    void Draw(const json &JsonObj) override;
+    std::unique_ptr<Picture> GetPicture() override;
 };
