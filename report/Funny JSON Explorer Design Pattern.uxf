@@ -1,0 +1,79 @@
+<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>742</x><y>63</y><w>147</w><h>70</h></coordinates><panel_attributes>Argument
+--
++ JsonFile: string
++ style: string
++ IconFamilyConfFile: string
+--
++ Argument(argc: int, argv: char**)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>196</y><w>217</w><h>77</h></coordinates><panel_attributes>/Drawer/
+--
+_# AvailableDrawer: map&lt;string, Drawer*&gt;_
+--
+_+ GetAvailableDrawer(DrawerName: string): Drawer*_
+_+ GetAvailableDrawerName(): vector&lt;string&gt;_
+/+ Draw(JsonObj: json)/
+/+ GetPicture(): unique_ptr&lt;Picture&gt;/
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>378</y><w>147</w><h>56</h></coordinates><panel_attributes>IconFamily
+--
+- icon[IconTypeCount]: string
+--
++ IconFamily(ConfFile: string)
++ operator[](type: IconType): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>308</y><w>147</w><h>35</h></coordinates><panel_attributes>/Picture/
+--
+--
+/+ print(icon: IconFamily)/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>518</x><y>217</y><w>182</w><h>105</h></coordinates><panel_attributes>RectDrawer
+--
+- PictureObj: unique_ptr&lt;RectPicture&gt;
+--
+- DrawLine(JsonObj: json, LeftIndent: string)
+- DrawRight()
+- DrawUp()
+- DrawDown()
++ RectDrawer()
++ Draw(JsonObj: json)
++ GetPicture(): unique_ptr&lt;Picture&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>518</x><y>133</y><w>182</w><h>77</h></coordinates><panel_attributes>TreeDrawer
+--
+- PictureObj: unique_ptr&lt;TreePicture&gt;
+--
+- DrawLine(JsonObj: json, LeftIndent: string)
++ TreeDrawer()
++ Draw(JsonObj: json)
++ GetPicture(): unique_ptr&lt;Picture&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>441</x><y>329</y><w>182</w><h>42</h></coordinates><panel_attributes>RectPicture
+--
+- PictureLines: vector&lt;unique_ptr&lt;RectLine&gt;&gt; 
+--
++ print(icon: IconFamily)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>441</x><y>385</y><w>182</w><h>42</h></coordinates><panel_attributes>TreePicture
+--
+- PictureLines: vector&lt;unique_ptr&lt;TreeLine&gt;&gt; 
+--
++ print(icon: IconFamily)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>749</x><y>371</y><w>147</w><h>56</h></coordinates><panel_attributes>TreeLine
+--
++ LeftIndent: string
++ content: string
++ type: IconType
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>749</x><y>294</y><w>147</w><h>63</h></coordinates><panel_attributes>RectLine
+--
++ LeftIndent: string
++ content: string
++ RightIndent: string
++ type: IconType
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>56</y><w>147</w><h>105</h></coordinates><panel_attributes>json
+--
+- child[]: json
+- val: value_type
+- value_type_t
+--
++ operator&gt;&gt;(s: stream): json
++ key(): string
++ dump(): string
++ begin(): json_iterator
++ end(): json_iterator</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>469</x><y>56</y><w>147</w><h>56</h></coordinates><panel_attributes>json_iterator
+--
+- object: json*
+- position: int
+--
++ operator*(): json</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>189</y><w>70</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;-
+</panel_attributes><additional_attributes>10;20;80;20</additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>245</y><w>70</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>392</x><y>329</y><w>63</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;-
+</panel_attributes><additional_attributes>10;10;40;10;40;110;70;110</additional_attributes></element><element><id>Relation</id><coordinates><x>392</x><y>301</y><w>105</w><h>42</h></coordinates><panel_attributes>lt=&lt;&lt;-
+</panel_attributes><additional_attributes>10;20;130;20;130;40</additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>343</y><w>147</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>406</y><w>147</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>392</x><y>63</y><w>91</w><h>21</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>266</y><w>21</w><h>56</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>154</y><w>21</w><h>56</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>392</x><y>91</y><w>91</w><h>21</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>336</y><w>21</w><h>56</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>266</y><w>119</w><h>84</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;100;150;100;150;10;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>175</y><w>133</w><h>231</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;310;170;310;170;10;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>392</x><y>112</y><w>70</w><h>49</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;50;80;50;80;10;10;10</additional_attributes></element></diagram>
