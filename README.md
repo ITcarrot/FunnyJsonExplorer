@@ -15,7 +15,7 @@ Usage: ./fje [OPTIONS]
 Options:
   -h,--help                   Print this help message and exit
   -f TEXT:FILE REQUIRED       The JSON file to be visualized
-  -s TEXT:{tree,rectangle} REQUIRED
+  -s TEXT:{tree,rectangle} [tree] 
                               Choose an output style
   -i TEXT:FILE                Path to the icon family configuration file
 ```
