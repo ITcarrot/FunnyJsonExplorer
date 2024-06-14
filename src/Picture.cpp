@@ -29,7 +29,7 @@ void Picture::IterateJson(const json &JsonObj, int IndentSize)
 
     else{
         PictureLine PictureLineObj;
-        PictureLineObj.LeftIndent = IndentSize;
+        PictureLineObj.IndentSize = IndentSize;
         PictureLineObj.content = JsonObj.dump();
         PictureLineObj.type = LeafIcon;
         PictureLines.push_back(PictureLineObj);

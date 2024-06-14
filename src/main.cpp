@@ -19,6 +19,8 @@ int main(int argc, char **argv)
     }
 
     Picture PictureObj(JsonObj);
+    auto DrawerObj = Drawer::GetAvailableDrawer(arg.style);
+    PictureObj.draw(DrawerObj);
     IconFamily icon(arg.IconFamilyConfFile);
     PictureObj.print(icon);
     return 0;
