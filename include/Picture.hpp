@@ -13,9 +13,10 @@ struct PictureLine{
 
 class Picture{
     private:
-    std::vector<PictureLine> PictureLineObj;
+    std::vector<PictureLine> PictureLines;
+    void IterateJson(const json &JsonObj, int IndentSize = 1);
     public:
     Picture(const json &JsonObj);
-    void draw(const Drawer* DrawerObj);
+    void draw(Drawer* DrawerObj);
     void print(const IconFamily &icon) const;
 };
