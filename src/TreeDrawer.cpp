@@ -1,10 +1,16 @@
 #include "TreeDrawer.hpp"
 
-TreeDrawer TreeDrawerObj;
+TreeDrawer TreeDrawerObj(true);
 
-TreeDrawer::TreeDrawer()
+TreeDrawer::TreeDrawer(bool RegisterDrawer)
 {
-    AvailableDrawer["tree"] = this;
+    if(RegisterDrawer)
+        AvailableDrawer["tree"] = this;
+}
+
+std::unique_ptr<Drawer> TreeDrawer::clone() const
+{
+    return std::make_unique<TreeDrawer>();
 }
 
 void TreeDrawer::DrawForward(PictureLine &PictureLineObj){}

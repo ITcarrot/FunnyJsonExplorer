@@ -17,6 +17,6 @@ class Picture{
     void IterateJson(const json &JsonObj, int IndentSize = 1);
     public:
     Picture(const json &JsonObj);
-    void draw(Drawer* DrawerObj);
+    void draw(std::unique_ptr<Drawer> &DrawerObj);
     void print(const IconFamily &icon) const;
 };

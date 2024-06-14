@@ -22,9 +22,14 @@ void Picture::IterateJson(const json &JsonObj, int IndentSize)
 
     else if(JsonObj.is_array())
         for(const auto &element: JsonObj)
-            if(element.is_object() || element.is_array())
+            if(element.is_object() || element.is_array()){
+                PictureLine PictureLineObj;
+                PictureLineObj.IndentSize = IndentSize;
+                PictureLineObj.content = "<subarray>";
+                PictureLineObj.type = InternalIcon;
+                PictureLines.push_back(PictureLineObj);
                 IterateJson(element, IndentSize + 1);
-            else
+            }else
                 IterateJson(element, IndentSize);
 
     else{
@@ -41,7 +46,7 @@ Picture::Picture(const json &JsonObj)
     IterateJson(JsonObj);
 }
 
-void Picture::draw(Drawer *DrawerObj)
+void Picture::draw(std::unique_ptr<Drawer> &DrawerObj)
 {
     for(auto &PictureLineObj: PictureLines)
         DrawerObj->DrawForward(PictureLineObj);
